@@ -825,9 +825,9 @@ static bool work_decode(const json_t *val, struct work *work)
 			char netinfo[64] = { 0 };
 			if (opt_showdiff && net_diff > 0.) {
 				if (net_diff != work->targetdiff)
-					sprintf(netinfo, ", diff %.3f, pool %.1f", net_diff, work->targetdiff);
+					sprintf(netinfo, ", diff %.10f, pool %.3f", net_diff, work->targetdiff);
 				else
-					sprintf(netinfo, ", diff %.3f", net_diff);
+					sprintf(netinfo, ", diff %.8f", net_diff);
 			}
 			applog(LOG_BLUE, "%s block %d%s",
 				algo_names[opt_algo], work->height, netinfo);
@@ -868,7 +868,7 @@ int share_result(int result, int pooln, double sharediff, const char *reason)
 
 	format_hashrate(hashrate, s);
 	if (opt_showdiff)
-		sprintf(suppl, "diff %.3f", sharediff);
+		sprintf(suppl, "diff %.8f", sharediff);
 	else // accepted percent
 		sprintf(suppl, "%.2f%%", 100. * p->accepted_count / (p->accepted_count + p->rejected_count));
 
@@ -1158,7 +1158,7 @@ static bool gbt_work_decode(const json_t *val, struct work *work)
 				if (net_diff > 0.) {
 					char netinfo[64] = { 0 };
 					char srate[32] = { 0 };
-					sprintf(netinfo, "diff %.2f", net_diff);
+					sprintf(netinfo, "diff %.8f", net_diff);
 					if (net_hashrate) {
 						format_hashrate((double) net_hashrate, srate);
 						strcat(netinfo, ", net ");
@@ -2877,10 +2877,10 @@ longpoll_retry:
 				if (!opt_quiet) {
 					char netinfo[64] = { 0 };
 					if (net_diff > 0.) {
-						sprintf(netinfo, ", diff %.3f", net_diff);
+						sprintf(netinfo, ", diff %.8f", net_diff);
 					}
 					if (opt_showdiff) {
-						sprintf(&netinfo[strlen(netinfo)], ", target %.3f", g_work.targetdiff);
+						sprintf(&netinfo[strlen(netinfo)], ", target %.8f", g_work.targetdiff);
 					}
 					if (g_work.height)
 						applog(LOG_BLUE, "%s block %u%s", algo_names[opt_algo], g_work.height, netinfo);
@@ -3068,7 +3068,7 @@ wait_stratum_url:
 				if ((!opt_quiet || !firstwork_time) && stratum.job.height != last_block_height) {
 					last_block_height = stratum.job.height;
 					if (net_diff > 0.)
-						applog(LOG_BLUE, "%s block %d, diff %.3f", algo_names[opt_algo],
+						applog(LOG_BLUE, "%s block %d, diff %.8f", algo_names[opt_algo],
 							stratum.job.height, net_diff);
 					else
 						applog(LOG_BLUE, "%s %s block %d", pool->short_url, algo_names[opt_algo],
@@ -3994,7 +3994,6 @@ int main(int argc, char *argv[])
 			CUDART_VERSION/1000, (CUDART_VERSION % 1000)/10, arch);
 		printf("  Originally based on Christian Buchner and Christian H. project\n");
 		printf("  Include some kernels from alexis78, djm34, djEzo, tsiv and krnlx.\n\n");
-		printf("BTC donation address: 1AJdfCpLWPNoAMDfHF1wD5y8VgKSSTHxPo (tpruvot)\n\n");
 	}
 
 	rpc_user = strdup("");
