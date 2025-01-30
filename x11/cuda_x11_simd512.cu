@@ -11,7 +11,7 @@ uint32_t *d_state[MAX_GPUS];
 uint4 *d_temp4[MAX_GPUS];
 
 // texture bound to d_temp4[thr_id], for read access in Compaction kernel
-texture<uint4, 1, cudaReadModeElementType> texRef1D_128;
+__device__ static cudaTextureObject_t texRef1D_128;
 
 #define DEVICE_DIRECT_CONSTANTS
 
@@ -685,13 +685,25 @@ int x11_simd512_cpu_init(int thr_id, uint32_t threads)
 
 	// Texture for 128-Bit Zugriffe
 	cudaChannelFormatDesc channelDesc128 = cudaCreateChannelDesc<uint4>();
-	texRef1D_128.normalized = 0;
-	texRef1D_128.filterMode = cudaFilterModePoint;
-	texRef1D_128.addressMode[0] = cudaAddressModeClamp;
 
-	CUDA_CALL_OR_RET_X(cudaBindTexture(NULL, &texRef1D_128, d_temp4[thr_id], &channelDesc128, 64*sizeof(uint4)*threads), (int) err);
+	cudaTextureDesc texDesc = {};
+	texDesc.normalizedCoords = 0;
+	texDesc.filterMode = cudaFilterModePoint;
+	texDesc.addressMode[0] = cudaAddressModeClamp;
+	texDesc.readMode = cudaReadModeElementType;
 
-	return 0;
+	// Allocate CUDA array and copy data
+	cudaArray* d_temp4_array;
+	CUDA_CALL_OR_RET_X(cudaMallocArray(&d_temp4_array, &channelDesc128, 64 * threads), (int) err);
+
+	cudaResourceDesc resDesc = {};
+	resDesc.resType = cudaResourceTypeArray;
+	resDesc.res.array.array = d_temp4_array;
+
+	cudaTextureObject_t texObj;
+	CUDA_CALL_OR_RET_X(cudaCreateTextureObject(&texObj, &resDesc, &texDesc, NULL), (int) err);
+
+    return 0;
 }
 
 __host__
