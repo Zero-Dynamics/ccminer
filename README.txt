@@ -23,6 +23,7 @@ cbuchner v1.2:
 
 This is a CUDA accelerated mining application which handle :
 
+Zero Dynamics Cash (argon2d)
 Decred (Blake256 14-rounds - 180 bytes)
 HeavyCoin & MjollnirCoin
 FugueCoin
@@ -75,6 +76,7 @@ its command line interface and options.
 
   -a, --algo=ALGO       specify the algorithm to use
                           allium      use to mine Garlic
+                          argon2d     use to mine Zero Dynamics Cash                          
                           bastion     use to mine Joincoin
                           bitcore     use to mine Bitcore's Timetravel10
                           blake       use to mine Saffroncoin (Blake256)
@@ -230,22 +232,20 @@ Wildkeccak specific:
 
 >>> Examples <<<
 
+Example for Cash Mining on mininpatriot.com with a single gpu in your system
+    ccminer -a argon2d -o stratum+tcp://eu.letshash.it:8132 -u walletaddress.username -p x
 
 Example for Heavycoin Mining on heavycoinpool.com with a single gpu in your system
     ccminer -t 1 -a heavy -o stratum+tcp://stratum01.heavycoinpool.com:5333 -u <<username.worker>> -p <<workerpassword>> -v 8
 
-
 Example for Heavycoin Mining on hvc.1gh.com with a dual gpu in your system
     ccminer -t 2 -a heavy -o stratum+tcp://hvcpool.1gh.com:5333/ -u <<WALLET>> -p x -v 8
-
 
 Example for Fuguecoin solo-mining with 4 gpu's in your system and a Fuguecoin-wallet running on localhost
     ccminer -q -s 1 -t 4 -a fugue256 -o http://localhost:9089/ -u <<myusername>> -p <<mypassword>>
 
-
 Example for Fuguecoin pool mining on dwarfpool.com with all your GPUs
     ccminer -q -a fugue256 -o stratum+tcp://erebor.dwarfpool.com:3340/ -u YOURWALLETADDRESS.1 -p YOUREMAILADDRESS
-
 
 Example for Groestlcoin solo mining
     ccminer -q -s 1 -a groestl -o http://127.0.0.1:1441/ -u USERNAME -p PASSWORD

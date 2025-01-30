@@ -11,6 +11,7 @@
 
 #include <ccminer-config.h>
 
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -240,6 +241,7 @@ Usage: " PROGRAM_NAME " [OPTIONS]\n\
 Options:\n\
   -a, --algo=ALGO       specify the hash algorithm to use\n\
 			allium      Garlic double lyra2\n\
+			argon2d     Zero Dynamics Cash\n\
 			bastion     Hefty bastion\n\
 			bitcore     Timetravel-10\n\
 			blake       Blake 256 (SFR)\n\
@@ -1736,6 +1738,9 @@ static bool stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
 			work_set_target(work, sctx->job.diff / (65536.0 * opt_difficulty));
 			break;
 		case ALGO_ALLIUM:
+		case ALGO_ARGON2D:
+			work_set_target(work, sctx->job.diff / (65536.0 * opt_difficulty));
+			break;
 		case ALGO_DMD_GR:
 		case ALGO_FRESH:
 		case ALGO_FUGUE256:
@@ -2278,6 +2283,7 @@ static void *miner_thread(void *userdata)
 				minmax = 0x1000000;
 				break;
 			case ALGO_ALLIUM:
+			case ALGO_ARGON2D:
 			case ALGO_C11:
 			case ALGO_DEEP:
 			case ALGO_HEAVY:
@@ -2373,6 +2379,9 @@ static void *miner_thread(void *userdata)
 
 		case ALGO_ALLIUM:
 			rc = scanhash_allium(thr_id, &work, max_nonce, &hashes_done);
+			break;
+		case ALGO_ARGON2D:
+			rc = scanhash_argon2d(thr_id, &work, max_nonce, &hashes_done);
 			break;
 		case ALGO_BASTION:
 			rc = scanhash_bastion(thr_id, &work, max_nonce, &hashes_done);
