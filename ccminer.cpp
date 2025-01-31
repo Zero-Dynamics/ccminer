@@ -241,7 +241,7 @@ Usage: " PROGRAM_NAME " [OPTIONS]\n\
 Options:\n\
   -a, --algo=ALGO       specify the hash algorithm to use\n\
 			allium      Garlic double lyra2\n\
-			argon2d     Zero Dynamics Cash\n\
+			argon2d1000 Argon2d (1000, 8, 1, 2)\n\
 			bastion     Hefty bastion\n\
 			bitcore     Timetravel-10\n\
 			blake       Blake 256 (SFR)\n\
@@ -254,9 +254,9 @@ Options:\n\
 			c11/flax    X11 variant\n\
 			decred      Decred Blake256\n\
 			deep        Deepcoin\n\
+			dmd-gr      Diamond-Groestl\n\
 			equihash    Zcash Equihash\n\
 			exosis      Exosis timetravel\n\
-			dmd-gr      Diamond-Groestl\n\
 			fresh       Freshcoin (shavite 80)\n\
 			fugue256    Fuguecoin\n\
 			graft       Cryptonight v8\n\
@@ -284,13 +284,13 @@ Options:\n\
 			polytimos   Politimos\n\
 			quark       Quark\n\
 			qubit       Qubit\n\
+			scrypt      Scrypt\n\
+			scrypt-jane Scrypt-jane Chacha\n\
 			sha256d     SHA256d (bitcoin)\n\
 			sha256t     SHA256 x3\n\
 			sha256q     SHA256 x4\n\
 			sia         SIA (Blake2B)\n\
 			sib         Sibcoin (X11+Streebog)\n\
-			scrypt      Scrypt\n\
-			scrypt-jane Scrypt-jane Chacha\n\
 			skein       Skein SHA2 (Skeincoin)\n\
 			skein2      Double Skein (Woodcoin)\n\
 			skunk       Skein Cube Fugue Streebog\n\
@@ -303,6 +303,7 @@ Options:\n\
 			veltor      Thorsriddle streebog\n\
 			whirlcoin   Old Whirlcoin (Whirlpool algo)\n\
 			whirlpool   Whirlpool algo\n\
+			wildkeccak  Boolberry\n\
 			x11evo      Permuted x11 (Revolver)\n\
 			x11         X11 (DarkCoin)\n\
 			x12         X12 (GalaxyCash)\n\
@@ -312,7 +313,6 @@ Options:\n\
 			x16r        X16R (Raven)\n\
 			x16s        X16S\n\
 			x17         X17\n\
-			wildkeccak  Boolberry\n\
 			zr5         ZR5 (ZiftrCoin)\n\
   -d, --devices         Comma separated list of CUDA devices to use.\n\
                         Device IDs start counting from 0! Alternatively takes\n\
@@ -1738,7 +1738,7 @@ static bool stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
 			work_set_target(work, sctx->job.diff / (65536.0 * opt_difficulty));
 			break;
 		case ALGO_ALLIUM:
-		case ALGO_ARGON2D:
+		case ALGO_ARGON2D1000:
 			work_set_target(work, sctx->job.diff / (65536.0 * opt_difficulty));
 			break;
 		case ALGO_DMD_GR:
@@ -2283,7 +2283,7 @@ static void *miner_thread(void *userdata)
 				minmax = 0x1000000;
 				break;
 			case ALGO_ALLIUM:
-			case ALGO_ARGON2D:
+			case ALGO_ARGON2D1000:
 			case ALGO_C11:
 			case ALGO_DEEP:
 			case ALGO_HEAVY:
@@ -2380,8 +2380,8 @@ static void *miner_thread(void *userdata)
 		case ALGO_ALLIUM:
 			rc = scanhash_allium(thr_id, &work, max_nonce, &hashes_done);
 			break;
-		case ALGO_ARGON2D:
-			rc = scanhash_argon2d(thr_id, &work, max_nonce, &hashes_done);
+		case ALGO_ARGON2D1000:
+			rc = scanhash_argon2d1000(thr_id, &work, max_nonce, &hashes_done);
 			break;
 		case ALGO_BASTION:
 			rc = scanhash_bastion(thr_id, &work, max_nonce, &hashes_done);

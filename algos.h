@@ -6,7 +6,7 @@
 
 enum sha_algos {
 	ALGO_BLAKECOIN = 0,
-	ALGO_ARGON2D,	
+	ALGO_ARGON2D1000,
 	ALGO_BLAKE,
 	ALGO_BLAKE2B,
 	ALGO_BLAKE2S,
@@ -88,32 +88,34 @@ enum sha_algos {
 extern volatile enum sha_algos opt_algo;
 
 static const char *algo_names[] = {
-	"blakecoin",
-	"argon2d",
+	"allium",
+	"argon2d1000",
+	"bastion",
+	"bitcore",
 	"blake",
+	"blakecoin",
 	"blake2b",
 	"blake2s",
-	"allium",
 	"bmw",
-	"bastion",
-	"c11",
 	"cryptolight",
 	"cryptonight",
-	"deep",
+	"c11",
 	"decred",
+	"deep",
 	"dmd-gr",
 	"equihash",
 	"exosis",
 	"fresh",
 	"fugue256",
+	"graft",
 	"groestl",
 	"heavy",
 	"hmq1725",
 	"hsr",
-	"keccak",
-	"keccakc",
 	"jackpot",
 	"jha",
+	"keccak",
+	"keccakc",
 	"lbry",
 	"luffa",
 	"lyra2",
@@ -121,6 +123,7 @@ static const char *algo_names[] = {
 	"lyra2v3",
 	"lyra2z",
 	"mjollnir",
+	"monero",
 	"myr-gr",
 	"neoscrypt",
 	"nist5",
@@ -141,10 +144,10 @@ static const char *algo_names[] = {
 	"skein2",
 	"skunk",
 	"sonoa",
+	"stellite",
 	"s3",
 	"timetravel",
 	"tribus",
-	"bitcore",
 	"x11evo",
 	"x11",
 	"x12",
@@ -161,9 +164,6 @@ static const char *algo_names[] = {
 	"whirlpoolx",
 	"wildkeccak",
 	"zr5",
-	"monero",
-	"graft",
-	"stellite",
 	"auto", /* reserved for multi algo */
 	""
 };
@@ -183,6 +183,8 @@ static inline int algo_to_int(char* arg)
 		// some aliases...
 		if (!strcasecmp("all", arg))
 			i = ALGO_AUTO;
+		else if (!strcasecmp("timetravel10", arg))
+			i = ALGO_BITCORE;
 		else if (!strcasecmp("cryptonight-light", arg))
 			i = ALGO_CRYPTOLIGHT;
 		else if (!strcasecmp("cryptonight-lite", arg))
@@ -213,8 +215,6 @@ static inline int algo_to_int(char* arg)
 			i = ALGO_SHA256D;
 		else if (!strcasecmp("thorsriddle", arg))
 			i = ALGO_VELTOR;
-		else if (!strcasecmp("timetravel10", arg))
-			i = ALGO_BITCORE;
 		else if (!strcasecmp("whirl", arg))
 			i = ALGO_WHIRLPOOL;
 		else if (!strcasecmp("ziftr", arg))

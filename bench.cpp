@@ -50,7 +50,7 @@ void algo_free_all(int thr_id)
 {
 	// only initialized algos will be freed
 	free_allium(thr_id);
-	free_argon2d(thr_id);
+	free_argon2d1000(thr_id);
 	free_bastion(thr_id);
 	free_bitcore(thr_id);
 	free_blake256(thr_id);
@@ -64,7 +64,6 @@ void algo_free_all(int thr_id)
 	free_deep(thr_id);
 	free_equihash(thr_id);
 	free_exosis(thr_id);
-	free_keccak256(thr_id);
 	free_fresh(thr_id);
 	free_fugue256(thr_id);
 	free_groestlcoin(thr_id);
@@ -75,6 +74,7 @@ void algo_free_all(int thr_id)
 	free_hsr(thr_id);
 	free_jackpot(thr_id);
 	free_jha(thr_id);
+	free_keccak256(thr_id);
 	free_lbry(thr_id);
 	free_luffa(thr_id);
 	free_lyra2(thr_id);
@@ -90,6 +90,8 @@ void algo_free_all(int thr_id)
 	free_polytimos(thr_id);
 	free_quark(thr_id);
 	free_qubit(thr_id);
+	free_scrypt(thr_id);
+	free_scrypt_jane(thr_id);
 	free_skeincoin(thr_id);
 	free_skein2(thr_id);
 	free_skunk(thr_id);
@@ -100,6 +102,8 @@ void algo_free_all(int thr_id)
 	free_sib(thr_id);
 	free_sonoa(thr_id);
 	free_s3(thr_id);
+	free_timetravel(thr_id);
+	free_tribus(thr_id);
 	free_vanilla(thr_id);
 	free_veltor(thr_id);
 	free_whirl(thr_id);
@@ -115,11 +119,6 @@ void algo_free_all(int thr_id)
 	free_x16s(thr_id);
 	free_x17(thr_id);
 	free_zr5(thr_id);
-	free_scrypt(thr_id);
-	free_scrypt_jane(thr_id);
-	free_timetravel(thr_id);
-	free_tribus(thr_id);
-	free_bitcore(thr_id);
 }
 
 // benchmark all algos (called once per mining thread)

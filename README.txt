@@ -23,40 +23,40 @@ cbuchner v1.2:
 
 This is a CUDA accelerated mining application which handle :
 
-Zero Dynamics Cash (argon2d)
+Aeon (Cryptonight-lite)
+BlakeCoin (256 8-rounds)
+Boolberry (Wild Keccak)
+Chaincoin and Flaxscript (C11)
+DarkCoin and other X11 coins
 Decred (Blake256 14-rounds - 180 bytes)
-HeavyCoin & MjollnirCoin
 FugueCoin
 GroestlCoin & Myriad-Groestl
-Lbry Credits
-JackpotCoin (JHA)
-QuarkCoin family & AnimeCoin
-TalkCoin
-DarkCoin and other X11 coins
-Chaincoin and Flaxscript (C11)
-Saffroncoin blake (256 14-rounds)
-BlakeCoin (256 8-rounds)
-Qubit (Digibyte, ...)
-Luffa (Joincoin)
-Keccak (Maxcoin)
-Pentablake (Blake 512 x5)
+HeavyCoin & MjollnirCoin
 1Coin Triple S
+JackpotCoin (JHA)
+Keccak (Maxcoin)
+Lbry Credits
+Luffa (Joincoin)
+Monero (Cryptonight v7 with -a monero)
 Neoscrypt (FeatherCoin)
-x11evo (Revolver)
+Pentablake (Blake 512 x5)
 phi2 (LUXCoin)
+QuarkCoin family & AnimeCoin
+Qubit (Digibyte, ...)
+Saffroncoin blake (256 14-rounds)
 Scrypt and Scrypt:N
 Scrypt-Jane (Chacha)
 sib (Sibcoin)
-Skein (Skein + SHA)
 Signatum (Skein cubehash fugue Streebog)
+Skein (Skein + SHA)
 SonoA (Sono)
+TalkCoin
 Tribus (JH, keccak, simd)
-Woodcoin (Double Skein)
 Vanilla (Blake256 8-rounds - double sha256)
 Vertcoin Lyra2REv3
-Boolberry (Wild Keccak)
-Monero (Cryptonight v7 with -a monero)
-Aeon (Cryptonight-lite)
+Woodcoin (Double Skein)
+x11evo (Revolver)
+Zero Dynamics Cash (argon2d1000)
 
 where some of these coins have a VERY NOTABLE nVidia advantage
 over competing AMD (OpenCL Only) implementations.
@@ -76,7 +76,7 @@ its command line interface and options.
 
   -a, --algo=ALGO       specify the algorithm to use
                           allium      use to mine Garlic
-                          argon2d     use to mine Zero Dynamics Cash                          
+                          argon2d1000 use to mine Zero Dynamics Cash                          
                           bastion     use to mine Joincoin
                           bitcore     use to mine Bitcore's Timetravel10
                           blake       use to mine Saffroncoin (Blake256)
@@ -129,6 +129,10 @@ its command line interface and options.
                           stellite    use to mine Stellite (a cryptonight variant)
                           timetravel  use to mine MachineCoin
                           tribus      use to mine Denarius
+                          vanilla     use to mine Vanilla (Blake256)
+                          veltor      use to mine VeltorCoin
+                          whirlpool   use to mine Joincoin
+                          wildkeccak  use to mine Boolberry (Stratum only)                 
                           x11evo      use to mine Revolver
                           x11         use to mine DarkCoin
                           x12         use to mine GalaxyCash
@@ -138,10 +142,6 @@ its command line interface and options.
                           x16r        use to mine Raven
                           x16s        use to mine Pigeon and Eden
                           x17         use to mine X17
-                          vanilla     use to mine Vanilla (Blake256)
-                          veltor      use to mine VeltorCoin
-                          whirlpool   use to mine Joincoin
-                          wildkeccak  use to mine Boolberry (Stratum only)
                           zr5         use to mine ZiftrCoin
 
   -d, --devices         gives a comma separated list of CUDA device IDs
@@ -233,7 +233,7 @@ Wildkeccak specific:
 >>> Examples <<<
 
 Example for Cash Mining on mininpatriot.com with a single gpu in your system
-    ccminer -a argon2d -o stratum+tcp://eu.letshash.it:8132 -u walletaddress.username -p x
+    ccminer -a argon2d1000 -o stratum+tcp://eu.letshash.it:8132 -u walletaddress.username -p x
 
 Example for Heavycoin Mining on heavycoinpool.com with a single gpu in your system
     ccminer -t 1 -a heavy -o stratum+tcp://stratum01.heavycoinpool.com:5333 -u <<username.worker>> -p <<workerpassword>> -v 8
