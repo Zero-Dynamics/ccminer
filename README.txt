@@ -58,20 +58,9 @@ Woodcoin (Double Skein)
 x11evo (Revolver)
 Zero Dynamics Cash (argon2d1000)
 
-where some of these coins have a VERY NOTABLE nVidia advantage
-over competing AMD (OpenCL Only) implementations.
-
-We did not take a big effort on improving usability, so please set
-your parameters carefuly.
-
-THIS PROGRAMM IS PROVIDED "AS-IS", USE IT AT YOUR OWN RISK!
-
-If you're interessted and read the source-code, please excuse
-that the most of our comments are in german.
-
 >>> Command Line Interface <<<
 
-This code is based on the pooler cpuminer and inherits
+The code is based on the pooler cpuminer and inherits
 its command line interface and options.
 
   -a, --algo=ALGO       specify the algorithm to use
