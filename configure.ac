@@ -1,4 +1,4 @@
-AC_INIT([ccminer], [2.3.1], [], [ccminer], [http://github.com/tpruvot/ccminer])
+AC_INIT([ccminer], [2.4.0], [], [ccminer], [http://github.com/tpruvot/ccminer])
 
 AC_PREREQ([2.69])
 AC_CANONICAL_HOST

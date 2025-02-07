@@ -1,5 +1,5 @@
 
-ccminer 2.3.1                     "lyra2v3, exosis and sha256q"
+ccminer 2.4.0                                         "argon2d"
 ---------------------------------------------------------------
 
 ***************************************************************
@@ -279,6 +279,12 @@ so we can more efficiently implement new algorithms using the latest hardware
 features.
 
 >>> RELEASE HISTORY <<<
+
+  Jan. 30th 2025  v2.4.0
+                  Update code to Ubuntu 24.04
+                  Make CUDA 12.8 compatible
+                  New Argon2d1000 algo for 0-Dyn Cash
+
   Jan. 30th 2019  v2.3.1
                   Handle Lyra2v3 algo
                   Handle sha256q algo
