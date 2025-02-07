@@ -9,12 +9,14 @@
 #define PROTOCOL_VERSION 70001
 #endif
 
+#include <cstdint>
 #include <stdexcept>
 #include <vector>
 
 #include <openssl/bn.h>
 
 #include "serialize.hpp"
+#include "uint256.h"
 
 /** Errors thrown by the bignum class */
 class bignum_error : public std::runtime_error
@@ -103,12 +105,20 @@ public:
     CBigNum(short n)            { init(); if (n >= 0) setulong(n); else setint64(n); }
     CBigNum(int n)              { init(); if (n >= 0) setulong(n); else setint64(n); }
     CBigNum(long n)             { init(); if (n >= 0) setulong(n); else setint64(n); }
+    #ifdef _WIN32
+    CBigNum(int64_t n)          { init(); setint64(n); }
+    #else
     CBigNum(int64 n)            { init(); setint64(n); }
+    #endif
     CBigNum(unsigned char n)    { init(); setulong(n); }
     CBigNum(unsigned short n)   { init(); setulong(n); }
     CBigNum(unsigned int n)     { init(); setulong(n); }
     CBigNum(unsigned long n)    { init(); setulong(n); }
+    #ifdef _WIN32
+    CBigNum(uint64_t n)         { init(); setuint64(n); }
+    #else
     CBigNum(uint64 n)           { init(); setuint64(n); }
+    #endif
     explicit CBigNum(uint256 n) { init(); setuint256(n); }
 
     explicit CBigNum(const std::vector<unsigned char>& vch)
